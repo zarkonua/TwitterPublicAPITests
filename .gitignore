@@ -1,0 +1,4 @@
+.idea/
+TwitterPublicAPITests.iml
+target/
+twitter4j.properties
