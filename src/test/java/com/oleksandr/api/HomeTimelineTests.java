@@ -28,7 +28,7 @@ public class HomeTimelineTests {
     }
 
     @Test
-    public void HomeTimeline_JustCreatedStatus_ShouldHaveCorrectDate() {
+    public void HomeTimeline_UpdateStatus_ShouldHaveCorrectDate() {
         List<Status> status = timeline.GetStatusFromUserTimeline(statusMsg);
         assertEquals(createdDate.getTime(), status.get(0).getCreatedAt().getTime(), 13);
     }
@@ -39,5 +39,10 @@ public class HomeTimelineTests {
         int retweetCount = status.getRetweetCount();
         tweets.RetweetStatus(status.getId());
         assertEquals(retweetCount + 1, timeline.GetStatusFromUserTimeline(statusMsg).get(0).getRetweetCount());
+    }
+
+    @Test
+    public void HomeTimeline_StatusMessage_ShouldHaveProperText() {
+        assertEquals(statusMsg, timeline.GetStatusFromUserTimeline(statusMsg).get(0).getText());
     }
 }
