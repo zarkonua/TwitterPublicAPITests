@@ -10,13 +10,13 @@ import static org.junit.Assert.assertEquals;
 
 public class HomeTimelineTests {
 
-    private String statusMsg = "Twitter test message1";
+    private String statusMsg = "Twitter test message HomeTimeline Tests";
     private Timeline timeline;
     private Date createdDate;
     private Tweets tweets;
 
     @Before
-    public void Init() {
+    public void Init() throws TwitterException {
         timeline = new Timeline();
         tweets = new Tweets();
         List<Status> status = timeline.GetStatusFromUserTimeline(statusMsg);
@@ -39,10 +39,5 @@ public class HomeTimelineTests {
         int retweetCount = status.getRetweetCount();
         tweets.RetweetStatus(status.getId());
         assertEquals(retweetCount + 1, timeline.GetStatusFromUserTimeline(statusMsg).get(0).getRetweetCount());
-    }
-
-    @Test
-    public void HomeTimeline_StatusMessage_ShouldHaveProperText() {
-        assertEquals(statusMsg, timeline.GetStatusFromUserTimeline(statusMsg).get(0).getText());
     }
 }

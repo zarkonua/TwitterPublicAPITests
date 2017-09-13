@@ -12,7 +12,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 
 public class Tweets {
-    public void UpdateStatus(String statusMsg){
+    public void UpdateStatus(String statusMsg) throws TwitterException {
         try {
             Twitter twitter = new TwitterFactory().getInstance();
             try {
@@ -58,6 +58,7 @@ public class Tweets {
         } catch (TwitterException te) {
             te.printStackTrace();
             System.out.println("Failed to get timeline: " + te.getMessage());
+            throw new TwitterException(te);
         } catch (IOException ioe) {
             ioe.printStackTrace();
             System.out.println("Failed to read the system input.");
