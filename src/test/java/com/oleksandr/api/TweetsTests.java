@@ -17,7 +17,7 @@ public class TweetsTests {
     private Tweets tweets;
 
     @Before
-    public void Init() throws TwitterException {
+    public void prepare() throws TwitterException {
         timeline = new Timeline();
         tweets = new Tweets();
         List<Status> status = timeline.GetStatusFromUserTimeline(statusMsg);
@@ -28,20 +28,15 @@ public class TweetsTests {
     }
 
     @Test
-    public void Tweets_DestroyStatus_ShouldDestroyStatus() {
+    public void destroyStatus_ShouldRemoveStatus() {
         List<Status> status = timeline.GetStatusFromUserTimeline(statusMsg);
         tweets.DestroyStatus(status.get(0).getId());
         assertTrue(timeline.GetStatusFromUserTimeline(statusMsg).size() == 0);
     }
 
     @Test(expected = TwitterException.class)
-    public void Tweets_UpdateStatusWithSameMsg_ShouldThrowException() throws TwitterException {
+    public void updateStatusWithSameMsg_ShouldThrowException() throws TwitterException {
         tweets.UpdateStatus(statusMsg);
         tweets.UpdateStatus(statusMsg);
-    }
-
-    @Test
-    public void Tweets_StatusMessage_ShouldHaveProperText() {
-        assertEquals(statusMsg, timeline.GetStatusFromUserTimeline(statusMsg).get(0).getText());
     }
 }

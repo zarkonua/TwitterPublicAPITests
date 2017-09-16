@@ -16,7 +16,7 @@ public class HomeTimelineTests {
     private Tweets tweets;
 
     @Before
-    public void Init() throws TwitterException {
+    public void prepare() throws TwitterException {
         timeline = new Timeline();
         tweets = new Tweets();
         List<Status> status = timeline.GetStatusFromUserTimeline(statusMsg);
@@ -28,13 +28,18 @@ public class HomeTimelineTests {
     }
 
     @Test
-    public void HomeTimeline_UpdateStatus_ShouldHaveCorrectDate() {
+    public void updateStatus_ShouldHaveCorrectDate() {
         List<Status> status = timeline.GetStatusFromUserTimeline(statusMsg);
         assertEquals(createdDate.getTime(), status.get(0).getCreatedAt().getTime(), 13);
     }
 
     @Test
-    public void HomeTimeline_RetweetStatus_ShouldIncreaseRetweetCount() {
+    public void statusMessage_ShouldHaveProperText() {
+        assertEquals(statusMsg, timeline.GetStatusFromUserTimeline(statusMsg).get(0).getText());
+    }
+
+    @Test
+    public void retweetStatus_ShouldIncreaseRetweetCount() {
         Status status = timeline.GetStatusFromUserTimeline(statusMsg).get(0);
         int retweetCount = status.getRetweetCount();
         tweets.RetweetStatus(status.getId());
